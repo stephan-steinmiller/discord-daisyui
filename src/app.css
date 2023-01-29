@@ -2,11 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+
 @layer components {
-    [data-theme="night"] .sidebar-icon {
-        @apply bg-neutral;
-    }
-    .tooltip:hover:after {
-        @apply opacity-0;
-    }
+    /* html {
+        @apply bg-base-300;
+    } */
 }

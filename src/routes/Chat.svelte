@@ -80,18 +80,44 @@
       canAutoScroll = true
       autoScroll()
     }
+
+  let messageContainer
+  let form
+  
+  function bindScrollHeight() {
+    console.log(textarea.scrollHeight)
+    textarea.style.height = 'auto'
+    textarea.style.height = textarea.scrollHeight + 'px'
+  }
+  function bindScrollHeightOnEvent(e) {
+    textarea = e.target
+    textarea.style.height = 'auto'
+    textarea.style.height = textarea.scrollHeight + 'px'
+    messageContainer.style.marginBottom = textarea.scrollHeight + 'px'
+  }
+
+  const handleTextAreaKeydown = event => {
+    if (event.key === 'Enter' && newMessage && !event.shiftKey) {
+      // Submit the form
+      event.preventDefault();
+      event.target.form.submit()
+    }
+  }
 </script>
 
-<div class="container">
-    <main>
+<!-- <div class=""> -->
+    <div bind:this={messageContainer} class="min-h-full flex flex-col justify-end">
         {#each messages as message (message.when)}
-            <ChatMessage {message} sender={$username} date=""/>
+            <ChatMessage {message} user={$username} />
         {/each}
         <div class="dummy" bind:this={scrollBottom} />
-    </main>
+    </div>
 
-    <form on:submit|preventDefault={sendMessage}>
-        <input type="text" placeholder="Type here" bind:value={newMessage} class="input w-full max-w-xs" />
-        <button type="submit" disabled={!newMessage} class="btn">Send</button>
+    <form ref="form" on:submit|preventDefault={sendMessage} class="fixed bottom-0 left-16 right-0 p-8 pt-2 flex bg-base-300">
+        <textarea on:input={bindScrollHeightOnEvent} on:keydown={newMessage ? handleTextAreaKeydown : () => {}} type="text" placeholder="Type here" bind:value={newMessage} contenteditable autofocus rows="1" class="textarea flex-auto resize-none overflow-y-auto h-auto" />
+        <button type="submit" disabled={!newMessage.trim()} class="btn btn-primary">Send</button>
     </form>
-</div>
+<!-- </div> -->
+
+<style>
+</style>

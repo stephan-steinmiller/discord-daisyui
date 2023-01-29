@@ -18,10 +18,12 @@
     }
 </script>
 
-<label for="username">Username</label>
-<input type="text" name="username" bind:value={username} minlength="3" maxlength="16" />
-<label for="password">Password</label>
-<input type="password" name="password" bind:value={password} minlength="3" maxlength="16" />
-
-<button class="login" on:click={login}>Login</button>
-<button class="login" on:click={signup}>Signup</button>
+<form class="flex flex-col gap-4 max-w-lg mx-auto">
+    <label for="username">Username</label>
+    <input type="text" placeholder="Enter in Username" name="username" bind:value={username} minlength="3" maxlength="16" class="input w-full" />
+    <label for="password">Password</label>
+    <input type="password" placeholder="Enter in Password" name="password" bind:value={password} minlength="8" maxlength="16" class="input w-full" />
+    
+    <button class="btn" on:click={login}>Login</button>
+    <button class="btn" on:click={signup}>Signup</button>
+</form>
